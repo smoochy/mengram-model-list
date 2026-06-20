@@ -18,7 +18,7 @@ REPO_ROOT = Path(__file__).parent.parent
 
 PROFILES = {
     "mengram": {
-        "thresholds_path": REPO_ROOT / "thresholds.yaml",
+        "thresholds_path": REPO_ROOT / "thresholds-mengram.yaml",
         "output_path": REPO_ROOT / "models-mengram.json",
     },
     "yt-summarizer": {

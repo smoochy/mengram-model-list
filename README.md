@@ -25,6 +25,7 @@ maintenance via Coindrop, Ko-fi, or Buy Me a Coffee.
 - [Output Format](#output-format)
 - [Consuming](#consuming)
 - [When the Workflow Runs](#when-the-workflow-runs)
+- [Anthropic Model List](#anthropic-model-list)
 - [Probe History](#probe-history)
 - [Transparency](#transparency)
 - [Security](#security)
@@ -47,6 +48,7 @@ instead of relying on one.
 | ---- | -------- | --------------- |
 | [`models-mengram.json`](models-mengram.json) | [mengram](https://github.com/alibaizhanov/mengram) knowledge extraction | Structured output (`response_format`) support, ≥40k context |
 | [`models-yt-summarizer.json`](models-yt-summarizer.json) | [yt-transcript-distiller](https://github.com/smoochy/yt-transcript-distiller) — YouTube transcript summarization | ≥32k context, plain text generation (no structured output required) |
+| [`anthropic-models.json`](anthropic-models.json) | [yt-transcript-distiller](https://github.com/smoochy/yt-transcript-distiller) — Claude model selector | List of current Anthropic Claude models (fetched weekly from Anthropic API) |
 
 Each file is independently generated with its own `thresholds-*.yaml` configuration. Point your `model_list_url` at the file matching your use case.
 
@@ -54,7 +56,7 @@ Each file is independently generated with its own `thresholds-*.yaml` configurat
 
 1. Fetch all OpenRouter models and keep the free ones
    (`pricing.prompt == "0"` and `pricing.completion == "0"`).
-2. Filter the remaining models by `thresholds.yaml`:
+2. Filter the remaining models by `thresholds-mengram.yaml`:
    - `min_param_b` — hard floor, never buffered. Parsed from the model id
      (e.g. `qwen/qwen3-32b:free` -> 32). Models where no size can be parsed
      are excluded unless listed in `allowlist`.
@@ -98,7 +100,7 @@ Each file is independently generated with its own `thresholds-*.yaml` configurat
 
 ## Configuration
 
-All tuning happens in `thresholds.yaml`:
+All tuning happens in `thresholds-mengram.yaml`:
 
 ```yaml
 min_param_b: 28
@@ -171,6 +173,30 @@ through the ranked list if the primary model becomes unavailable.
 
 Each run regenerates the model list files and the per-model probe history under
 `history/`, and commits the changes only if something changed.
+
+## Anthropic Model List
+
+`anthropic-models.json` contains the current set of Anthropic Claude models,
+fetched weekly from `https://api.anthropic.com/v1/models`. Format:
+
+```json
+[
+  { "id": "claude-haiku-4-5-20251001", "name": "Claude Haiku 4.5" },
+  { "id": "claude-opus-4-8", "name": "Claude Opus 4.8" },
+  { "id": "claude-sonnet-4-6", "name": "Claude Sonnet 4.6" }
+]
+```
+
+Only entries with `type == "model"` are included; sorted by `id` ascending.
+
+**Consumers** fetch this list from raw.githubusercontent.com:
+
+```
+https://raw.githubusercontent.com/smoochy/openrouter-model-list/main/anthropic-models.json
+```
+
+The [update-anthropic-models.yml](.github/workflows/update-anthropic-models.yml) workflow runs
+every Tuesday at 03:00 UTC (plus `workflow_dispatch`) and commits only when the list changes.
 
 ## Probe History
 
