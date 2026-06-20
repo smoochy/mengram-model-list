@@ -3,7 +3,7 @@ from pathlib import Path
 
 import yaml
 
-DEFAULT_THRESHOLDS_PATH = Path(__file__).parent.parent / "thresholds.yaml"
+DEFAULT_THRESHOLDS_PATH = Path(__file__).parent.parent / "thresholds-mengram.yaml"
 
 DEFAULTS = {
     "min_param_b": 28,

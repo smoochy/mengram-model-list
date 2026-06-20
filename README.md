@@ -54,7 +54,7 @@ Each file is independently generated with its own `thresholds-*.yaml` configurat
 
 1. Fetch all OpenRouter models and keep the free ones
    (`pricing.prompt == "0"` and `pricing.completion == "0"`).
-2. Filter the remaining models by `thresholds.yaml`:
+2. Filter the remaining models by `thresholds-mengram.yaml`:
    - `min_param_b` — hard floor, never buffered. Parsed from the model id
      (e.g. `qwen/qwen3-32b:free` -> 32). Models where no size can be parsed
      are excluded unless listed in `allowlist`.
@@ -98,7 +98,7 @@ Each file is independently generated with its own `thresholds-*.yaml` configurat
 
 ## Configuration
 
-All tuning happens in `thresholds.yaml`:
+All tuning happens in `thresholds-mengram.yaml`:
 
 ```yaml
 min_param_b: 28

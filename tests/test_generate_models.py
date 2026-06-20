@@ -10,7 +10,7 @@ from scoring import NEUTRAL_UPTIME
 def test_resolve_profile_mengram():
     from generate_models import resolve_profile, REPO_ROOT
     p = resolve_profile("mengram")
-    assert p["thresholds_path"] == REPO_ROOT / "thresholds.yaml"
+    assert p["thresholds_path"] == REPO_ROOT / "thresholds-mengram.yaml"
     assert p["output_path"] == REPO_ROOT / "models-mengram.json"
 
 
