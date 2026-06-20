@@ -181,13 +181,13 @@ fetched weekly from `https://api.anthropic.com/v1/models`. Format:
 
 ```json
 [
-  { "id": "claude-haiku-4-5-20251001", "name": "Claude Haiku 4.5" },
-  { "id": "claude-opus-4-8", "name": "Claude Opus 4.8" },
-  { "id": "claude-sonnet-4-6", "name": "Claude Sonnet 4.6" }
+  { "id": "claude-haiku-4-5-20251001", "display_name": "Claude Haiku 4.5", "type": "model", "created_at": 1748995200 },
+  { "id": "claude-opus-4-8", "display_name": "Claude Opus 4.8", "type": "model", "created_at": 1749600000 },
+  { "id": "claude-sonnet-4-6", "display_name": "Claude Sonnet 4.6", "type": "model", "created_at": 1749600000 }
 ]
 ```
 
-Only entries with `type == "model"` are included; sorted by `id` ascending.
+Only entries with `type == "model"` are included; sorted by `id` ascending. Note: the field is `display_name` (native Anthropic API field name), not `name`.
 
 **Consumers** fetch this list from raw.githubusercontent.com:
 
