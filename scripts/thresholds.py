@@ -1,4 +1,4 @@
-"""Load thresholds.yaml with defaults for missing keys."""
+"""Load thresholds-mengram.yaml with defaults for missing keys."""
 from pathlib import Path
 
 import yaml
